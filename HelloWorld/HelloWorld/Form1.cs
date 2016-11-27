@@ -16,14 +16,14 @@ namespace HelloWorld
         {
             InitializeComponent();
         }
-        
 
+        // Form yüklenirken çalışıyor
         private void Form1_Load(object sender, EventArgs e)
         {
-            //MessageBox.Show("Merhaba Dünya");
+            MessageBox.Show("Merhaba Dünya");
         }
 
-        private void MerhabaDunyaBtn_Click(object sender, EventArgs e)
+        private void KaydetBtn_Click(object sender, EventArgs e)
         {
             MessageBox.Show(AdSoyadTxtB.Text + "\n" + SifreTxtB.Text);
         }

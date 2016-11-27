@@ -29,23 +29,23 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.MerhabaDunyaBtn = new System.Windows.Forms.Button();
+            this.KaydetBtn = new System.Windows.Forms.Button();
             this.AdSoyadTxtB = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SifreTxtB = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // MerhabaDunyaBtn
+            // KaydetBtn
             // 
-            this.MerhabaDunyaBtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("MerhabaDunyaBtn.BackgroundImage")));
-            this.MerhabaDunyaBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.MerhabaDunyaBtn.Location = new System.Drawing.Point(155, 60);
-            this.MerhabaDunyaBtn.Name = "MerhabaDunyaBtn";
-            this.MerhabaDunyaBtn.Size = new System.Drawing.Size(34, 30);
-            this.MerhabaDunyaBtn.TabIndex = 0;
-            this.MerhabaDunyaBtn.UseVisualStyleBackColor = true;
-            this.MerhabaDunyaBtn.Click += new System.EventHandler(this.MerhabaDunyaBtn_Click);
+            this.KaydetBtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("KaydetBtn.BackgroundImage")));
+            this.KaydetBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.KaydetBtn.Location = new System.Drawing.Point(142, 27);
+            this.KaydetBtn.Name = "KaydetBtn";
+            this.KaydetBtn.Size = new System.Drawing.Size(70, 63);
+            this.KaydetBtn.TabIndex = 0;
+            this.KaydetBtn.UseVisualStyleBackColor = true;
+            this.KaydetBtn.Click += new System.EventHandler(this.KaydetBtn_Click);
             // 
             // AdSoyadTxtB
             // 
@@ -85,12 +85,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(212, 142);
+            this.ClientSize = new System.Drawing.Size(224, 112);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.SifreTxtB);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AdSoyadTxtB);
-            this.Controls.Add(this.MerhabaDunyaBtn);
+            this.Controls.Add(this.KaydetBtn);
             this.Name = "Form1";
             this.Text = "Merhaba Dünya";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -101,7 +101,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button MerhabaDunyaBtn;
+        private System.Windows.Forms.Button KaydetBtn;
         private System.Windows.Forms.TextBox AdSoyadTxtB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
