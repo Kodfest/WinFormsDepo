@@ -27,5 +27,6 @@ namespace HelloWorld
         {
             MessageBox.Show(AdSoyadTxtB.Text + "\n" + SifreTxtB.Text);
         }
+        
     }
 }
