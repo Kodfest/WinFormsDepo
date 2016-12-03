@@ -33,14 +33,12 @@ namespace SansTopu
             if (turSayisi % 10 == 0)
             {
                 timer1.Stop();
-                Sayilar.Sort(); // Sort işlem bitince, yani son çıkan sayıları sıralıyor
+                //Sayilar.Sort(); // Sort işlem bitince, yani son çıkan sayıları sıralıyor
             }
             else
             {
                 Sayilar.Clear();
             }
-
-            //Sayilar.Sort(); // Burada şuan anlamadığımız bir hata veriyor, araştıracağız! 
 
             while (sayac < 6)
             {
@@ -52,6 +50,10 @@ namespace SansTopu
                     sayac++;
                 }
             }
+
+            //Sayilar.Sort(); // Burada şuan anlamadığımız bir hata veriyor, araştıracağız!
+
+            //Sayilar.Reverse(); // Ters çevirilmiyor !!
 
             label1.Text = Sayilar[0].ToString();
             label2.Text = Sayilar[1].ToString();
