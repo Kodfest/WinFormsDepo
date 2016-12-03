@@ -30,19 +30,17 @@ namespace SansTopu
         int turSayisi = 1;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (turSayisi % 30 == 0)
+            if (turSayisi % 10 == 0)
             {
                 timer1.Stop();
+                Sayilar.Sort(); // Sort işlem bitince, yani son çıkan sayıları sıralıyor
             }
             else
             {
                 Sayilar.Clear();
             }
 
-            if (turSayisi == 20)
-            {
-                timer1.Interval = 250;
-            }
+            //Sayilar.Sort(); // Burada şuan anlamadığımız bir hata veriyor, araştıracağız! 
 
             while (sayac < 6)
             {
@@ -54,8 +52,6 @@ namespace SansTopu
                     sayac++;
                 }
             }
-
-            Sayilar.Sort();
 
             label1.Text = Sayilar[0].ToString();
             label2.Text = Sayilar[1].ToString();
