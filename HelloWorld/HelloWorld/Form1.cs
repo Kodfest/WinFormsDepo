@@ -27,6 +27,11 @@ namespace HelloWorld
         {
             MessageBox.Show(AdSoyadTxtB.Text + "\n" + SifreTxtB.Text);
         }
-        
+
+        private void SifreTxtB_TextChanged(object sender, EventArgs e)
+        {
+
+
+        }
     }
 }

@@ -79,6 +79,7 @@
             this.SifreTxtB.Size = new System.Drawing.Size(124, 20);
             this.SifreTxtB.TabIndex = 3;
             this.SifreTxtB.UseSystemPasswordChar = true;
+            this.SifreTxtB.TextChanged += new System.EventHandler(this.SifreTxtB_TextChanged);
             // 
             // Form1
             // 
