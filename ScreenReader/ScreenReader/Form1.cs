@@ -17,7 +17,7 @@ namespace ScreenReader
             InitializeComponent();
         }
 
-        List<string> isimler = new List<string>() { "Seçkin", "Ufuk", "Özgür", "Kaan", "Ege", "Temmuz", "Erdem", "Doğan", "Metin", "Alper" };
+        List<string> isimler = new List<string>() { "Seçkin", "Ufuk", "Özgür", "Kaan", "Ege", "Temmuz", "Erdem", "Doğan", "Metin", "Alper", "Ulaş" };
 
         Random rnd = new Random();
 
@@ -30,7 +30,7 @@ namespace ScreenReader
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            int index = rnd.Next(0, 10);
+            int index = rnd.Next(0, 11);
             string isim = isimler[index];
             Graphics g = CreateGraphics();
 
