@@ -102,7 +102,8 @@ namespace SeckinTruzim
             LabelOtobusTuru.Text = CBoxOtobusTuru.SelectedItem.ToString();
 
             GBoxMusteriBilgileri.Enabled = true;
-
+            
+            #region Kullanıcı_Bilgilerini_Getir
             if (CBoxOtobusTuru.SelectedItem.ToString() == "Travego")
             {
                 string yolcu = travegoYolcularIsim[int.Parse(secilenKoltuk.Text) - 1];
@@ -110,19 +111,66 @@ namespace SeckinTruzim
                 if (yolcu != "")
                 {
                     TxtMusteriAdSoyAd.Text = yolcu;
+                    
+                    #region ÖncekiKoltukDurumu
+                    string oncekiVeyaSonrakiCinsiyet;
+                    int KoltukNo = int.Parse(LabelKoltukNo.Text);
+                    if (KoltukNo % 2 == 0)
+                    {
+                        int bakilacakKoltuk = int.Parse(LabelKoltukNo.Text) - 1;
 
-                    string cinsiyet = travegoYolcularCinsiyet[int.Parse(secilenKoltuk.Text) - 1];
+                        oncekiVeyaSonrakiCinsiyet = travegoYolcularCinsiyet[bakilacakKoltuk - 1];
 
-                    if (cinsiyet == "Erkek")
+                        if (oncekiVeyaSonrakiCinsiyet == "Erkek")
+                        {
+                            RadioBtnKadin.Enabled = false;
+                        }
+                        else if (oncekiVeyaSonrakiCinsiyet == "Kadın")
+                        {
+                            RadioBtnErkek.Enabled = false;
+                        }
+                        else
+                        {
+                            RadioBtnErkek.Enabled = true;
+                            RadioBtnKadin.Enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        int bakilacakKoltuk = int.Parse(LabelKoltukNo.Text) + 1;
+
+                        oncekiVeyaSonrakiCinsiyet = travegoYolcularCinsiyet[bakilacakKoltuk-1];
+
+                        if (oncekiVeyaSonrakiCinsiyet == "Erkek")
+                        {
+                            RadioBtnKadin.Enabled = false;
+                        }
+                        else if (oncekiVeyaSonrakiCinsiyet == "Kadın")
+                        {
+                            RadioBtnErkek.Enabled = false;
+                        }
+                        else
+                        {
+                            RadioBtnErkek.Enabled = true;
+                            RadioBtnKadin.Enabled = true;
+                        }
+                    }
+                    #endregion
+
+                    #region CinsiyeteGöreGörünümAyarlama
+                    string kendiCinsiyeti = travegoYolcularCinsiyet[int.Parse(secilenKoltuk.Text) - 1];
+                    if (kendiCinsiyeti == "Erkek")
                     {
                         RadioBtnErkek.Checked = true;
                         secilenKoltuk.BackColor = Color.Blue;
                     }
-                    else if (cinsiyet == "Kadın")
+                    else if (kendiCinsiyeti == "Kadın")
                     {
                         RadioBtnKadin.Checked = true;
                         secilenKoltuk.BackColor = Color.Pink;
                     }
+                    #endregion
+
                 }
             }
             else
@@ -133,8 +181,43 @@ namespace SeckinTruzim
                 {
                     TxtMusteriAdSoyAd.Text = yolcu;
 
-                    string cinsiyet = neoplanYolcularCinsiyet[int.Parse(secilenKoltuk.Text) - 1];
+                    #region ÖncekiKoltukDurumu
+                    string oncekiVeyaSonrakiCinsiyet;
+                    int KoltukNo = int.Parse(LabelKoltukNo.Text);
+                    if (KoltukNo % 2 == 0)
+                    {
+                        int bakilacakKoltuk = int.Parse(LabelKoltukNo.Text) - 1;
 
+                        oncekiVeyaSonrakiCinsiyet = neoplanYolcularCinsiyet[bakilacakKoltuk];
+
+                        if (oncekiVeyaSonrakiCinsiyet == "Erkek")
+                        {
+                            RadioBtnKadin.Enabled = false;
+                        }
+                        else if (oncekiVeyaSonrakiCinsiyet == "Kadın")
+                        {
+                            RadioBtnErkek.Enabled = false;
+                        }
+                    }
+                    else
+                    {
+                        int bakilacakKoltuk = int.Parse(LabelKoltukNo.Text) + 1;
+
+                        oncekiVeyaSonrakiCinsiyet = neoplanYolcularCinsiyet[bakilacakKoltuk];
+
+                        if (oncekiVeyaSonrakiCinsiyet == "Erkek")
+                        {
+                            RadioBtnKadin.Enabled = false;
+                        }
+                        else if (oncekiVeyaSonrakiCinsiyet == "Kadın")
+                        {
+                            RadioBtnErkek.Enabled = false;
+                        }
+                    }
+                    #endregion
+
+                    #region CinsiyeteGöreGörünümAyarlama
+                    string cinsiyet = neoplanYolcularCinsiyet[int.Parse(secilenKoltuk.Text) - 1];
                     if (cinsiyet == "Erkek")
                     {
                         RadioBtnErkek.Checked = true;
@@ -145,8 +228,11 @@ namespace SeckinTruzim
                         RadioBtnKadin.Checked = true;
                         secilenKoltuk.BackColor = Color.Pink;
                     }
+                    #endregion
                 }
             }
+            #endregion
+            
         }
 
         string[] travegoYolcularIsim = new string[47];
