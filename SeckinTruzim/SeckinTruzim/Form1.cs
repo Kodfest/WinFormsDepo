@@ -19,7 +19,7 @@ namespace SeckinTruzim
         private void Form1_Load(object sender, EventArgs e)
         {
             pictureBox1.ImageLocation = System.IO.Path.GetFullPath("Photos/pt_logo.png");
-           
+
             this.BackColor = Color.FromArgb(255, 255, 255);
 
             PanelTravego.Visible = false;
@@ -74,8 +74,8 @@ namespace SeckinTruzim
                 }
             }
             #endregion
+            
         }
-
         private void CBoxOtobusTuru_SelectedIndexChanged(object sender, EventArgs e)
         {
             TxtMusteriAdSoyAd.Clear(); // TxtMusteriAdSoyAd.Text = "";
@@ -93,33 +93,37 @@ namespace SeckinTruzim
                 PanelNeoplan.Visible = false;
             }
         }
-
         private void ButtonClick(object sender, EventArgs e)
         {
-            
+
             Button secilenKoltuk = sender as Button;
             LabelKoltukNo.Text = secilenKoltuk.Text;
             LabelOtobusTuru.Text = CBoxOtobusTuru.SelectedItem.ToString();
 
             GBoxMusteriBilgileri.Enabled = true;
-            
-            #region Kullanıcı_Bilgilerini_Getir
-            if (CBoxOtobusTuru.SelectedItem.ToString() == "Travego")
+
+            if (musteriler.Count != 0)
             {
-                string yolcu = travegoYolcularIsim[int.Parse(secilenKoltuk.Text) - 1];
+                Musteri secilenMusteri = musteriler[int.Parse(secilenKoltuk.Text) - 1];
 
-                if (yolcu != "")
+                if (secilenMusteri.adi != null)
                 {
-                    TxtMusteriAdSoyAd.Text = yolcu;
-                    
-                    #region ÖncekiKoltukDurumu
-                    string oncekiVeyaSonrakiCinsiyet;
-                    int KoltukNo = int.Parse(LabelKoltukNo.Text);
-                    if (KoltukNo % 2 == 0)
-                    {
-                        int bakilacakKoltuk = int.Parse(LabelKoltukNo.Text) - 1;
+                    TxtMusteriAdSoyAd.Text = secilenMusteri.adi;
+                    string cinsiyet = secilenMusteri.cinsiyet;
 
-                        oncekiVeyaSonrakiCinsiyet = travegoYolcularCinsiyet[bakilacakKoltuk - 1];
+                    RadioBtnErkek.Checked = cinsiyet == "Erkek" ? true : false;
+                    RadioBtnKadin.Checked = cinsiyet == "Kadın" ? true : false;
+
+                    LabelKoltukNo.Text = secilenMusteri.koltukNo.ToString();
+                    LabelOtobusTuru.Text = secilenMusteri.otobusTuru.ToString();
+
+                    string oncekiVeyaSonrakiCinsiyet;
+
+                    if (secilenMusteri.koltukNo % 2 == 0)
+                    {
+                        int bakilacakKoltuk = secilenMusteri.koltukNo - 1;
+
+                        oncekiVeyaSonrakiCinsiyet = musteriler[bakilacakKoltuk - 1].cinsiyet;
 
                         if (oncekiVeyaSonrakiCinsiyet == "Erkek")
                         {
@@ -137,9 +141,9 @@ namespace SeckinTruzim
                     }
                     else
                     {
-                        int bakilacakKoltuk = int.Parse(LabelKoltukNo.Text) + 1;
+                        int bakilacakKoltuk = secilenMusteri.koltukNo + 1;
 
-                        oncekiVeyaSonrakiCinsiyet = travegoYolcularCinsiyet[bakilacakKoltuk-1];
+                        oncekiVeyaSonrakiCinsiyet = musteriler[bakilacakKoltuk - 1].cinsiyet;
 
                         if (oncekiVeyaSonrakiCinsiyet == "Erkek")
                         {
@@ -155,131 +159,23 @@ namespace SeckinTruzim
                             RadioBtnKadin.Enabled = true;
                         }
                     }
-                    #endregion
-
-                    #region CinsiyeteGöreGörünümAyarlama
-                    string kendiCinsiyeti = travegoYolcularCinsiyet[int.Parse(secilenKoltuk.Text) - 1];
-                    if (kendiCinsiyeti == "Erkek")
-                    {
-                        RadioBtnErkek.Checked = true;
-                        secilenKoltuk.BackColor = Color.Blue;
-                    }
-                    else if (kendiCinsiyeti == "Kadın")
-                    {
-                        RadioBtnKadin.Checked = true;
-                        secilenKoltuk.BackColor = Color.Pink;
-                    }
-                    #endregion
-
                 }
             }
-            else
-            {
-                string yolcu = neoplanYolcularIsim[int.Parse(secilenKoltuk.Text) - 1];
-
-                if (yolcu != "")
-                {
-                    TxtMusteriAdSoyAd.Text = yolcu;
-
-                    #region ÖncekiKoltukDurumu
-                    string oncekiVeyaSonrakiCinsiyet;
-                    int KoltukNo = int.Parse(LabelKoltukNo.Text);
-                    if (KoltukNo % 2 == 0)
-                    {
-                        int bakilacakKoltuk = int.Parse(LabelKoltukNo.Text) - 1;
-
-                        oncekiVeyaSonrakiCinsiyet = neoplanYolcularCinsiyet[bakilacakKoltuk];
-
-                        if (oncekiVeyaSonrakiCinsiyet == "Erkek")
-                        {
-                            RadioBtnKadin.Enabled = false;
-                        }
-                        else if (oncekiVeyaSonrakiCinsiyet == "Kadın")
-                        {
-                            RadioBtnErkek.Enabled = false;
-                        }
-                    }
-                    else
-                    {
-                        int bakilacakKoltuk = int.Parse(LabelKoltukNo.Text) + 1;
-
-                        oncekiVeyaSonrakiCinsiyet = neoplanYolcularCinsiyet[bakilacakKoltuk];
-
-                        if (oncekiVeyaSonrakiCinsiyet == "Erkek")
-                        {
-                            RadioBtnKadin.Enabled = false;
-                        }
-                        else if (oncekiVeyaSonrakiCinsiyet == "Kadın")
-                        {
-                            RadioBtnErkek.Enabled = false;
-                        }
-                    }
-                    #endregion
-
-                    #region CinsiyeteGöreGörünümAyarlama
-                    string cinsiyet = neoplanYolcularCinsiyet[int.Parse(secilenKoltuk.Text) - 1];
-                    if (cinsiyet == "Erkek")
-                    {
-                        RadioBtnErkek.Checked = true;
-                        secilenKoltuk.BackColor = Color.Blue;
-                    }
-                    else if (cinsiyet == "Kadın")
-                    {
-                        RadioBtnKadin.Checked = true;
-                        secilenKoltuk.BackColor = Color.Pink;
-                    }
-                    #endregion
-                }
-            }
-            #endregion
-            
         }
 
-        string[] travegoYolcularIsim = new string[47];
-        string[] travegoYolcularCinsiyet = new string[47];
-        string[] neoplanYolcularIsim = new string[55];
-        string[] neoplanYolcularCinsiyet = new string[55];
-        
+        List<Musteri> musteriler = new List<Musteri>();
+
         private void BtnKaydet_Click(object sender, EventArgs e)
         {
-            #region Kaydet
-            if (LabelOtobusTuru.Text == "Neoplan")
-            {
-                neoplanYolcularIsim[int.Parse(LabelKoltukNo.Text) - 1] = TxtMusteriAdSoyAd.Text;
+            Musteri musteri = new Musteri();
+            musteri.adi = TxtMusteriAdSoyAd.Text;
 
-                string cinsiyet;
+            string cinsiyet = RadioBtnErkek.Checked == true ? "Erkek" : "Kadın";
+            musteri.cinsiyet = cinsiyet;
 
-                if (RadioBtnKadin.Checked)
-                {
-                    cinsiyet = "Kadın";
-                }
-                else
-                {
-                    cinsiyet = "Erkek";
-                }
-
-                neoplanYolcularCinsiyet[int.Parse(LabelKoltukNo.Text) - 1] = cinsiyet;
-                
-            }
-            else
-            {
-                travegoYolcularIsim[int.Parse(LabelKoltukNo.Text) - 1] = TxtMusteriAdSoyAd.Text;
-
-                string cinsiyet;
-
-                if (RadioBtnKadin.Checked)
-                {
-                    cinsiyet = "Kadın";
-                }
-                else
-                {
-                    cinsiyet = "Erkek";
-                }
-
-                travegoYolcularCinsiyet[int.Parse(LabelKoltukNo.Text) - 1] = cinsiyet;
-            }
-            #endregion
-            
+            musteri.koltukNo = Byte.Parse(LabelKoltukNo.Text);
+            musteri.otobusTuru = LabelOtobusTuru.Text;
+            musteriler.Add(musteri);
 
             PanelNeoplan.Controls.Clear();
             PanelTravego.Controls.Clear();
@@ -296,39 +192,29 @@ namespace SeckinTruzim
 
         private Color RenkOlustur(int count, string otobusTuru)
         {
-            Color color;
-            if(otobusTuru == "Travego")
+            Color color = Color.FromArgb(1, 22, 64);
+
+            if (musteriler.Count != 0)
             {
-                string cinsiyet = travegoYolcularCinsiyet[count - 1];
-                if (cinsiyet == "Erkek")
+                if (musteriler[count - 1] != null)
                 {
-                    color = Color.Blue;
-                }
-                else if (cinsiyet == "Kadın")
-                {
-                    color = Color.Pink;
-                }
-                else
-                {
-                    color = Color.FromArgb(1, 22, 64);
+                    string cinsiyet = musteriler[count - 1].cinsiyet;
+
+                    if (cinsiyet == "Erkek")
+                    {
+                        color = Color.Blue;
+                    }
+                    else if (cinsiyet == "Kadın")
+                    {
+                        color = Color.Pink;
+                    }
+                    else
+                    {
+                        color = Color.FromArgb(1, 22, 64);
+                    }
                 }
             }
-            else
-            {
-                string cinsiyet = neoplanYolcularCinsiyet[count - 1];
-                if (cinsiyet == "Erkek")
-                {
-                    color = Color.Blue;
-                }
-                else if (cinsiyet == "Kadın")
-                {
-                    color = Color.Pink;
-                }
-                else
-                {
-                    color = Color.FromArgb(1, 22, 64);
-                }
-            }
+            
             return color;
         }
     }
