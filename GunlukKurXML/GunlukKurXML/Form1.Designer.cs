@@ -34,12 +34,13 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CBoxKurTuru = new System.Windows.Forms.ComboBox();
+            this.Takvim = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.DGridKurlar)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnGetir
             // 
-            this.BtnGetir.Location = new System.Drawing.Point(9, 40);
+            this.BtnGetir.Location = new System.Drawing.Point(12, 76);
             this.BtnGetir.Margin = new System.Windows.Forms.Padding(4);
             this.BtnGetir.Name = "BtnGetir";
             this.BtnGetir.Size = new System.Drawing.Size(121, 28);
@@ -51,7 +52,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(137, 9);
+            this.label1.Location = new System.Drawing.Point(140, 45);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 17);
@@ -64,7 +65,7 @@
             this.DGridKurlar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2});
-            this.DGridKurlar.Location = new System.Drawing.Point(140, 32);
+            this.DGridKurlar.Location = new System.Drawing.Point(143, 68);
             this.DGridKurlar.Margin = new System.Windows.Forms.Padding(4);
             this.DGridKurlar.Name = "DGridKurlar";
             this.DGridKurlar.Size = new System.Drawing.Size(244, 148);
@@ -85,17 +86,26 @@
             // CBoxKurTuru
             // 
             this.CBoxKurTuru.FormattingEnabled = true;
-            this.CBoxKurTuru.Location = new System.Drawing.Point(9, 9);
+            this.CBoxKurTuru.Location = new System.Drawing.Point(12, 45);
             this.CBoxKurTuru.Name = "CBoxKurTuru";
             this.CBoxKurTuru.Size = new System.Drawing.Size(121, 24);
             this.CBoxKurTuru.TabIndex = 3;
             this.CBoxKurTuru.SelectedIndexChanged += new System.EventHandler(this.CboxSelected);
             // 
+            // Takvim
+            // 
+            this.Takvim.Location = new System.Drawing.Point(13, 13);
+            this.Takvim.Name = "Takvim";
+            this.Takvim.Size = new System.Drawing.Size(366, 23);
+            this.Takvim.TabIndex = 4;
+            this.Takvim.ValueChanged += new System.EventHandler(this.Takvim_ValueChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(391, 190);
+            this.ClientSize = new System.Drawing.Size(391, 223);
+            this.Controls.Add(this.Takvim);
             this.Controls.Add(this.CBoxKurTuru);
             this.Controls.Add(this.DGridKurlar);
             this.Controls.Add(this.label1);
@@ -119,6 +129,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.ComboBox CBoxKurTuru;
+        private System.Windows.Forms.DateTimePicker Takvim;
     }
 }
 

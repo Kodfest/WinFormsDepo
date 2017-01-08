@@ -56,9 +56,11 @@
             this.bomba.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.bomba.TabIndex = 1;
             this.bomba.TabStop = false;
+            this.bomba.Visible = false;
             // 
             // timer1
             // 
+            this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1

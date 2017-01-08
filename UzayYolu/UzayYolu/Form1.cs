@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,44 +15,35 @@ namespace UzayYolu
     {
         public Form1()
         {
-            this.Size = new Size(500, 300);
             InitializeComponent();
-            bomba.Visible = false;
         }
 
-        
         int genislik = Form1.ActiveForm.Width;
         int yukseklik = Form1.ActiveForm.Height;
+
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            genislik = Form1.ActiveForm.Width;
-            yukseklik = Form1.ActiveForm.Height;
-
             switch (e.KeyCode)
             {
                 case Keys.Left:
-                    SpaceShip.Left -= 10;
+                    SpaceShip.Left -= 30;
                     break;
                 case Keys.Right:
-                    SpaceShip.Left += 10;
+                    SpaceShip.Left += 30;
                     break;
                 case Keys.Up:
-                    SpaceShip.Top -= 10;
+                    SpaceShip.Top -= 30;
                     break;
                 case Keys.Down:
-                    SpaceShip.Top += 10;
+                    SpaceShip.Top += 30;
                     break;
                 case Keys.Space:
-                    int x = SpaceShip.Location.X + bomba.Width / 2;
-                    int y = SpaceShip.Location.Y + bomba.Height / 2;
                     timer1.Start();
-                    bomba.Visible = true;
-                    
                     break;
                 default:
                     break;
             }
-            
+
             if (SpaceShip.Location.X > genislik - SpaceShip.Width)
             {
                 MessageBox.Show("Game Over");
@@ -64,11 +56,15 @@ namespace UzayYolu
                 SpaceShip.Location = new Point(0, 0);
             }
         }
-        
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             genislik = Form1.ActiveForm.Width;
             yukseklik = Form1.ActiveForm.Height;
+
+            int x = SpaceShip.Location.X - bomba.Width / 2;
+            int y = SpaceShip.Location.Y - bomba.Height / 2;
+            bomba.Location = new Point(x, y);
             
             if (bomba.Location.X < genislik - bomba.Width)
             {

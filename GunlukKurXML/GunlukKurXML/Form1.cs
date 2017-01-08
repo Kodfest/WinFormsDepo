@@ -17,45 +17,63 @@ namespace GunlukKurXML
         {
             InitializeComponent();
         }
+        //http://www.tcmb.gov.tr/kurlar/201612/01122016.xml
 
         bool dolarState = false, euroState = false, poundState = false;
+        XmlDocument xmlDoc = new XmlDocument();
         private void BtnGetir_Click(object sender, EventArgs e)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load("http://www.tcmb.gov.tr/kurlar/today.xml");
-            DateTime tarih = Convert.ToDateTime(xmlDoc.SelectSingleNode("//Tarih_Date").Attributes["Tarih"].Value);
-
-            label1.Text = tarih.ToString("dd/MM/yyyy");
-
-            #region KurDegeriGetir
-            if (CBoxKurTuru.SelectedItem != null)
+            if (Takvim.Value != null)
             {
-                if (CBoxKurTuru.SelectedItem.ToString() == "Dolar" && !dolarState)
+                string gun = Takvim.Value.Day <= 9 ? "0" + Takvim.Value.Day.ToString() : Takvim.Value.Day.ToString();
+                string ay = Takvim.Value.Month <= 9 ? "0" + Takvim.Value.Month.ToString() : Takvim.Value.Month.ToString();
+                string yil = Takvim.Value.Year.ToString();
+
+                try
                 {
-                    string USD = xmlDoc.SelectSingleNode("Tarih_Date/Currency[@Kod='USD']/BanknoteSelling").InnerXml;
+                    xmlDoc.Load("http://www.tcmb.gov.tr/kurlar/" + yil + ay + "/" + gun + ay + yil + ".xml");
+                    DateTime tarih = Convert.ToDateTime(xmlDoc.SelectSingleNode("//Tarih_Date").Attributes["Tarih"].Value);
 
-                    DGridKurlar.Rows.Add("Dolar", USD);
+                    label1.Text = tarih.ToString("dd/MM/yyyy");
 
-                    dolarState = true;
+                    #region KurDegeriGetir
+                    if (CBoxKurTuru.SelectedItem != null)
+                    {
+                        if (CBoxKurTuru.SelectedItem.ToString() == "Dolar" && !dolarState)
+                        {
+                            string USD = xmlDoc.SelectSingleNode("Tarih_Date/Currency[@Kod='USD']/BanknoteSelling").InnerXml;
+
+                            DGridKurlar.Rows.Add("Dolar", USD);
+
+                            dolarState = true;
+                        }
+                        else if (CBoxKurTuru.SelectedItem.ToString() == "Euro" && !euroState)
+                        {
+                            string EUR = xmlDoc.SelectSingleNode("Tarih_Date/Currency[@Kod='EUR']/BanknoteSelling").InnerXml;
+
+                            DGridKurlar.Rows.Add("Euro", EUR);
+
+                            euroState = true;
+                        }
+                        else if (CBoxKurTuru.SelectedItem.ToString() == "Pound" && !poundState)
+                        {
+                            string GBP = xmlDoc.SelectSingleNode("Tarih_Date/Currency[@Kod='GBP']/BanknoteSelling").InnerXml;
+
+                            DGridKurlar.Rows.Add("Pound", GBP);
+
+                            poundState = true;
+                        }
+                    }
+                    #endregion
                 }
-                else if (CBoxKurTuru.SelectedItem.ToString() == "Euro" && !euroState)
+                catch (Exception)
                 {
-                    string EUR = xmlDoc.SelectSingleNode("Tarih_Date/Currency[@Kod='EUR']/BanknoteSelling").InnerXml;
 
-                    DGridKurlar.Rows.Add("Euro", EUR);
-
-                    euroState = true;
+                    MessageBox.Show("Lütfen Tatil Günü Seçmeyin!");
                 }
-                else if (CBoxKurTuru.SelectedItem.ToString() == "Pound" && !poundState)
-                {
-                    string GBP = xmlDoc.SelectSingleNode("Tarih_Date/Currency[@Kod='GBP']/BanknoteSelling").InnerXml;
-
-                    DGridKurlar.Rows.Add("Pound", GBP);
-
-                    poundState = true;
-                }
+                
+                
             }
-            #endregion
         }
 
         private void SelectedRow(string paraBirimi)
@@ -75,6 +93,12 @@ namespace GunlukKurXML
             CBoxKurTuru.Items.Add("Euro");
             CBoxKurTuru.Items.Add("Pound");
             DGridTemizle();
+        }
+
+        private void Takvim_ValueChanged(object sender, EventArgs e)
+        {
+            dolarState = false; euroState = false; poundState = false;
+            DGridKurlar.Rows.Clear();
         }
 
         private void CboxSelected(object sender, EventArgs e)
