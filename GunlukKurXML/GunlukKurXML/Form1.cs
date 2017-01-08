@@ -97,7 +97,9 @@ namespace GunlukKurXML
 
         private void Takvim_ValueChanged(object sender, EventArgs e)
         {
-            dolarState = false; euroState = false; poundState = false;
+            dolarState = false;
+            euroState = false;
+            poundState = false;
             DGridKurlar.Rows.Clear();
         }
 
